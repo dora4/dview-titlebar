@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DoraTitleBar">
+        <attr name="dview_isShowIcon" format="boolean"/>
+        <attr name="dview_icon" format="reference"/>
+        <attr name="dview_iconSize" format="dimension|reference"/>
+        <attr name="dview_iconMarginStart" format="dimension|reference"/>
+        <attr name="dview_isClickIconClose" format="boolean"/>
+        <attr name="dview_isShowTitle" format="boolean"/>
+        <attr name="dview_title" format="string|reference"/>
+        <attr name="dview_titleTextColor" format="color|reference"/>
+        <attr name="dview_titleTextSize" format="dimension|reference"/>
+        <attr name="dview_isTitleTextBold" format="boolean"/>
+    </declare-styleable>
+</resources>
