@@ -35,8 +35,8 @@ afterEvaluate {
             register("release", MavenPublication::class) {
                 from(components["release"])
                 groupId = "com.github.dora4"
-                artifactId = rootProject.project.name
-                version = "1.0"
+                artifactId = "dview-titlebar"
+                version = "1.1"
             }
         }
     }
