@@ -168,21 +168,21 @@ abstract class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: A
         return ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back) ?: BitmapDrawable()
     }
 
-    fun dp2px(context: Context, dpVal: Float): Int {
+    private fun dp2px(context: Context, dpVal: Float): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
             dpVal, context.resources.displayMetrics
         ).toInt()
     }
 
-    fun sp2px(context: Context, spVal: Float): Int {
+    private fun sp2px(context: Context, spVal: Float): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP,
             spVal, context.resources.displayMetrics
         ).toInt()
     }
 
-    fun px2sp(context: Context, pxVal: Float): Float {
+    private fun px2sp(context: Context, pxVal: Float): Float {
         val scale = context.resources.displayMetrics.scaledDensity
         return pxVal / scale
     }
