@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "dora.widget"
+    namespace = "dora.widget.titlebar"
     compileSdk = 32
 
     defaultConfig {
@@ -36,7 +36,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dview-titlebar"
-                version = "1.2"
+                version = "1.3"
             }
         }
     }
