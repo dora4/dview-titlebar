@@ -17,7 +17,7 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import dora.widget.titlebar.R
 
 /**
  * 简易标题栏。
