@@ -22,7 +22,7 @@ import dora.widget.titlebar.R
 /**
  * 简易标题栏。
  */
-abstract class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
+open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
     private var onIconClickListener: OnIconClickListener? = null
     val titleView = AppCompatTextView(context)
@@ -158,7 +158,9 @@ abstract class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: A
     /**
      * 标题栏默认背景色，推荐R.color.colorPrimary,将覆盖android:background的值。
      */
-    @ColorRes abstract fun defaultBackgroundColor(): Int
+    @ColorRes open fun defaultBackgroundColor(): Int {
+        return android.R.color.black
+    }
 
     private fun initStyle(context: Context) {
         setBackgroundColor(ContextCompat.getColor(context, defaultBackgroundColor()))
