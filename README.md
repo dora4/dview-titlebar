@@ -13,7 +13,7 @@ allprojects {
 }
 // 添加以下代码到app模块的build.gradle
 dependencies {
-    def latest_version = '1.4'
+    def latest_version = '1.5'
     implementation 'com.github.dora4:dview-titlebar:$latest_version'
 }
 ```
