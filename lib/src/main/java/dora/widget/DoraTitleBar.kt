@@ -84,7 +84,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         iconSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_iconSize, iconSize)
         iconMarginStart = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_iconMarginStart, iconMarginStart)
         isClickIconClose = a.getBoolean(R.styleable.DoraTitleBar_dview_isClickIconClose, isClickIconClose)
-        isShowTitle = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowTitle, isShowIcon)
+        isShowTitle = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowTitle, isShowTitle)
         title = a.getString(R.styleable.DoraTitleBar_dview_title) ?: title
         titleTextColor = a.getColor(R.styleable.DoraTitleBar_dview_titleTextColor, titleTextColor)
         titleTextSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleTextSize, titleTextSize)
