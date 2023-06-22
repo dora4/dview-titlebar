@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DoraTitleBar">
-        <attr name="dview_isShowIcon" format="boolean"/>
-        <attr name="dview_icon" format="reference"/>
-        <attr name="dview_iconSize" format="dimension|reference"/>
-        <attr name="dview_iconMarginStart" format="dimension|reference"/>
-        <attr name="dview_isClickIconClose" format="boolean"/>
+        <attr name="dview_isShowBackIcon" format="boolean"/>
+        <attr name="dview_backIcon" format="reference"/>
+        <attr name="dview_backIconSize" format="dimension|reference"/>
+        <!-- 用于给返回按钮增加点击区域 -->
+        <attr name="dview_backIconBoxPadding" format="dimension|reference"/>
+        <attr name="dview_backIconMarginStart" format="dimension|reference"/>
+        <attr name="dview_isClickBackIconClose" format="boolean"/>
         <attr name="dview_isShowTitle" format="boolean"/>
         <attr name="dview_title" format="string|reference"/>
         <attr name="dview_titleTextColor" format="color|reference"/>
         <attr name="dview_titleTextSize" format="dimension|reference"/>
         <attr name="dview_isTitleTextBold" format="boolean"/>
+        <!-- 用于给菜单按钮增加点击区域 -->
+        <attr name="dview_menuIconBoxPadding" format="dimension|reference"/>
+        <attr name="dview_menuIconMarginEnd" format="dimension|reference"/>
     </declare-styleable>
 </resources>

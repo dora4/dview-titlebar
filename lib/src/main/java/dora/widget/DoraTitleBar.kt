@@ -9,49 +9,71 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import dora.widget.titlebar.R
 
 /**
  * 简易标题栏。
  */
-open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
+class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0, defStyleRes: Int = 0) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private var onIconClickListener: OnIconClickListener? = null
     val titleView = AppCompatTextView(context)
-    val iconView = AppCompatImageView(context)
-    private var isShowIcon: Boolean = true
-    var icon: Drawable = createDefaultIcon(context)
+    val backIconView = AppCompatImageView(context)
+    private var backIconBox = FrameLayout(context)
+    /**
+     * 存放右边所有菜单按钮的容器。
+     */
+    private val menuIconContainer = LinearLayoutCompat(context)
+    private var isShowBackIcon: Boolean = true
+    var backIcon: Drawable = createBackIcon(context)
         set(value) {
             field = value
-            iconView.background = field
+            backIconView.background = field
         }
-    var iconSize: Int = dp2px(context, 16f)
+    var backIconSize: Int = dp2px(context, 16f)
         set(value) {
             field = value
-            val iconLp = LayoutParams(iconSize, iconSize)
-            iconLp.marginStart = iconMarginStart
+            val iconLp = LayoutParams(backIconSize, backIconSize)
+            iconLp.marginStart = backIconMarginStart
             iconLp.addRule(ALIGN_PARENT_START)
             iconLp.addRule(CENTER_VERTICAL)
-            iconView.layoutParams = iconLp
+            backIconView.layoutParams = iconLp
         }
-    var iconMarginStart: Int = dp2px(context, 12f)
+    var backIconBoxPadding: Int = dp2px(context, 6f)
         set(value) {
             field = value
-            val iconLp = LayoutParams(iconSize, iconSize)
+            requestLayout()
+        }
+    var menuIconBoxPadding: Int = dp2px(context, 3f)
+        set(value) {
+            field = value
+            requestLayout()
+        }
+    var backIconMarginStart: Int = dp2px(context, 12f)
+        set(value) {
+            field = value
+            val iconLp = LayoutParams(backIconSize, backIconSize)
             iconLp.marginStart = field
             iconLp.addRule(ALIGN_PARENT_START)
             iconLp.addRule(CENTER_VERTICAL)
-            iconView.layoutParams = iconLp
+            backIconView.layoutParams = iconLp
         }
-    var isClickIconClose: Boolean = true
+    var menuIconMarginEnd: Int = dp2px(context, 12f)
+        set(value) {
+            field = value
+        }
+    var isClickBackIconClose: Boolean = true
         set(value) {
             field = value
         }
@@ -76,14 +98,15 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
             field = value
             if (field) titleView.typeface = Typeface.DEFAULT_BOLD else titleView.typeface = Typeface.DEFAULT
         }
+    private val menuBoxList: MutableList<FrameLayout> = arrayListOf()
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.DoraTitleBar)
-        isShowIcon = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowIcon, isShowIcon)
-        icon = a.getDrawable(R.styleable.DoraTitleBar_dview_icon) ?: icon
-        iconSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_iconSize, iconSize)
-        iconMarginStart = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_iconMarginStart, iconMarginStart)
-        isClickIconClose = a.getBoolean(R.styleable.DoraTitleBar_dview_isClickIconClose, isClickIconClose)
+        isShowBackIcon = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowBackIcon, isShowBackIcon)
+        backIcon = a.getDrawable(R.styleable.DoraTitleBar_dview_backIcon) ?: backIcon
+        backIconSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconSize, backIconSize)
+        backIconMarginStart = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconMarginStart, backIconMarginStart)
+        isClickBackIconClose = a.getBoolean(R.styleable.DoraTitleBar_dview_isClickBackIconClose, isClickBackIconClose)
         isShowTitle = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowTitle, isShowTitle)
         title = a.getString(R.styleable.DoraTitleBar_dview_title) ?: title
         titleTextColor = a.getColor(R.styleable.DoraTitleBar_dview_titleTextColor, titleTextColor)
@@ -91,20 +114,27 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         isTitleTextBold = a.getBoolean(R.styleable.DoraTitleBar_dview_isTitleTextBold, isTitleTextBold)
         a.recycle()
         initView(context)
-        initStyle(context)
         initListener(context)
     }
 
     private fun initView(context: Context) {
-        val iconLp = LayoutParams(iconSize, iconSize)
-        iconLp.marginStart = iconMarginStart
-        iconLp.addRule(ALIGN_PARENT_START)
-        iconLp.addRule(CENTER_VERTICAL)
         val titleLp = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         titleLp.addRule(CENTER_IN_PARENT)
-        if (isShowIcon) addView(iconView, iconLp)
+        val backIconBoxLp = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        backIconBoxLp.marginStart = backIconMarginStart
+        backIconBoxLp.addRule(ALIGN_PARENT_START)
+        backIconBoxLp.addRule(CENTER_VERTICAL)
+        val menuIconContainerLp = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        menuIconContainerLp.marginEnd = menuIconMarginEnd
+        menuIconContainerLp.addRule(ALIGN_PARENT_END)
+        menuIconContainerLp.addRule(CENTER_VERTICAL)
+        backIconBox = wrapButton(true, backIconView)
+        if (isShowBackIcon) addView(backIconBox, backIconBoxLp)
         if (isShowTitle) addView(titleView, titleLp)
-        iconView.background = icon
+        menuIconContainer.gravity = Gravity.CENTER_VERTICAL
+        menuIconContainer.orientation = LinearLayoutCompat.HORIZONTAL
+        addView(menuIconContainer, menuIconContainerLp)
+        backIconView.background = backIcon
         titleView.text = title
         titleView.textSize = px2sp(context, titleTextSize.toFloat())
         titleView.setTextColor(titleTextColor)
@@ -112,14 +142,14 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, applyWrapContentSize(heightMeasureSpec, dp2px(context, 48f)))
-        if (isShowIcon) measureChild(iconView, widthMeasureSpec, heightMeasureSpec)
+        if (isShowBackIcon) measureChild(backIconBox, widthMeasureSpec, heightMeasureSpec)
         if (isShowTitle) measureChild(titleView, widthMeasureSpec, heightMeasureSpec)
     }
 
     private fun initListener(context: Context) {
-        iconView.setOnClickListener {
-            onIconClickListener?.onIconStartClick(iconView)
-            if (isClickIconClose) {
+        backIconBox.setOnClickListener {
+            onIconClickListener?.onIconBackClick(backIconView)
+            if (isClickBackIconClose) {
                 (context as Activity).finish()
             }
         }
@@ -127,12 +157,13 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
-        if (isShowIcon) drawChild(canvas, iconView, drawingTime)
+        if (isShowBackIcon) drawChild(canvas, backIconBox, drawingTime)
         if (isShowTitle) drawChild(canvas, titleView, drawingTime)
     }
 
     interface OnIconClickListener {
-        fun onIconStartClick(icon: AppCompatImageView)
+        fun onIconBackClick(icon: AppCompatImageView)
+        fun onIconMenuClick(position: Int, icon: AppCompatImageView)
     }
 
     fun setOnIconClickListener(listener: OnIconClickListener) {
@@ -156,18 +187,41 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     /**
-     * 标题栏默认背景色，推荐R.color.colorPrimary,将覆盖android:background的值。
+     * 创建默认的返回按钮。
      */
-    @ColorRes open fun defaultBackgroundColor(): Int {
-        return android.R.color.black
-    }
-
-    private fun initStyle(context: Context) {
-        setBackgroundColor(ContextCompat.getColor(context, defaultBackgroundColor()))
-    }
-
-    private fun createDefaultIcon(context: Context): Drawable {
+    private fun createBackIcon(context: Context): Drawable {
         return ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back) ?: BitmapDrawable()
+    }
+
+    fun addMenuButton(menuIconView: AppCompatImageView) : DoraTitleBar {
+        val menuBox = wrapButton(false, menuIconView)
+        menuBox.setOnClickListener {
+            if (menuBox.childCount > 0) {
+                val imageView = menuBox.getChildAt(0) as AppCompatImageView
+                menuBoxList.forEachIndexed { index, frameLayout ->
+                    if (menuBox == frameLayout) {
+                        onIconClickListener?.onIconMenuClick(index, imageView)
+                    }
+                }
+            }
+        }
+        // 添加到最前面去，这是因为索引从右边向左边递增
+        menuIconContainer.addView(menuBox, 0)
+        menuBoxList.add(menuBox)
+        return this
+    }
+
+    private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
+        val box = FrameLayout(context)
+        if (isBackButton) {
+            box.setPadding(backIconBoxPadding, backIconBoxPadding, backIconBoxPadding, backIconBoxPadding)
+            val lp = FrameLayout.LayoutParams(backIconSize, backIconSize)
+            box.addView(iconView, lp)
+        } else {
+            box.setPadding(menuIconBoxPadding, menuIconBoxPadding, menuIconBoxPadding, menuIconBoxPadding)
+            box.addView(iconView)
+        }
+        return box
     }
 
     private fun dp2px(context: Context, dpVal: Float): Int {
