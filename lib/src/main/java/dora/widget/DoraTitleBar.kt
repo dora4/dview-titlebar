@@ -106,6 +106,9 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         backIcon = a.getDrawable(R.styleable.DoraTitleBar_dview_backIcon) ?: backIcon
         backIconSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconSize, backIconSize)
         backIconMarginStart = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconMarginStart, backIconMarginStart)
+        menuIconMarginEnd = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_menuIconMarginEnd, menuIconMarginEnd)
+        backIconBoxPadding = a.getDimensionPixelOffset(R.styleable.DoraTitleBar_dview_backIconBoxPadding, backIconBoxPadding)
+        menuIconBoxPadding = a.getDimensionPixelOffset(R.styleable.DoraTitleBar_dview_menuIconBoxPadding, menuIconBoxPadding)
         isClickBackIconClose = a.getBoolean(R.styleable.DoraTitleBar_dview_isClickBackIconClose, isClickBackIconClose)
         isShowTitle = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowTitle, isShowTitle)
         title = a.getString(R.styleable.DoraTitleBar_dview_title) ?: title
@@ -162,7 +165,15 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     interface OnIconClickListener {
+
+        /**
+         * 左侧的返回键按钮被点击。
+         */
         fun onIconBackClick(icon: AppCompatImageView)
+
+        /**
+         * 右侧的菜单按钮被点击。
+         */
         fun onIconMenuClick(position: Int, icon: AppCompatImageView)
     }
 
@@ -211,6 +222,9 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         return this
     }
 
+    /**
+     * 增加按钮的点击区域范围。
+     */
     private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
         val box = FrameLayout(context)
         if (isBackButton) {
