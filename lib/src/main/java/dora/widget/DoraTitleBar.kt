@@ -2,6 +2,7 @@ package dora.widget
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Typeface
@@ -15,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
@@ -40,6 +42,11 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         set(value) {
             field = value
             backIconView.background = field
+        }
+    @ColorInt var backIconTint: Int = Color.TRANSPARENT
+        set(value) {
+            field = value
+            backIconView.imageTintList = ColorStateList.valueOf(backIconTint)
         }
     var backIconSize: Int = dp2px(context, 16f)
         set(value) {
@@ -104,6 +111,7 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         val a = context.obtainStyledAttributes(attrs, R.styleable.DoraTitleBar)
         isShowBackIcon = a.getBoolean(R.styleable.DoraTitleBar_dview_isShowBackIcon, isShowBackIcon)
         backIcon = a.getDrawable(R.styleable.DoraTitleBar_dview_backIcon) ?: backIcon
+        backIconTint = a.getColor(R.styleable.DoraTitleBar_dview_backIconTint, backIconTint)
         backIconSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconSize, backIconSize)
         backIconMarginStart = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_backIconMarginStart, backIconMarginStart)
         menuIconMarginEnd = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_menuIconMarginEnd, menuIconMarginEnd)
@@ -204,6 +212,13 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         return ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back) ?: BitmapDrawable()
     }
 
+    fun createMenuButton(@DrawableRes iconResId: Int, width: Int, height: Int) : AppCompatImageView {
+        val menuButton = AppCompatImageView(context)
+        menuButton.layoutParams = LayoutParams(width, height)
+        menuButton.setImageResource(iconResId)
+        return menuButton
+    }
+
     fun addMenuButton(menuIconView: AppCompatImageView) : DoraTitleBar {
         val menuBox = wrapButton(false, menuIconView)
         menuBox.setOnClickListener {
@@ -228,6 +243,7 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
         val box = FrameLayout(context)
         if (isBackButton) {
+            iconView.imageTintList = ColorStateList.valueOf(backIconTint)
             box.setPadding(backIconBoxPadding, backIconBoxPadding, backIconBoxPadding, backIconBoxPadding)
             val lp = FrameLayout.LayoutParams(backIconSize, backIconSize)
             box.addView(iconView, lp)

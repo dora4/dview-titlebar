@@ -3,6 +3,7 @@
     <declare-styleable name="DoraTitleBar">
         <attr name="dview_isShowBackIcon" format="boolean"/>
         <attr name="dview_backIcon" format="reference"/>
+        <attr name="dview_backIconTint" format="color|reference"/>
         <attr name="dview_backIconSize" format="dimension|reference"/>
         <!-- 用于给返回按钮增加点击区域 -->
         <attr name="dview_backIconBoxPadding" format="dimension|reference"/>
