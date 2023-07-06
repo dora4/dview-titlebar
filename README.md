@@ -13,23 +13,16 @@ allprojects {
 }
 // 添加以下代码到app模块的build.gradle
 dependencies {
-    implementation 'com.github.dora4:dview-titlebar:1.8'
+    implementation 'com.github.dora4:dview-titlebar:1.9'
 }
 ```
 
 #### 控件使用
 
 ```kotlin
-     val imageView = AppCompatImageView(this)
-        val dp24 = DensityUtils.dp2px(this, 24f)
-        imageView.layoutParams = RelativeLayout.LayoutParams(dp24, dp24)
-        imageView.setImageResource(R.drawable.ic_save)
-        val imageView2 = AppCompatImageView(this)
-        imageView2.layoutParams = RelativeLayout.LayoutParams(dp24, dp24)
-        imageView2.setImageResource(R.drawable.ic_confirm)
         mBinding.titleBar
-            .addMenuButton(imageView)
-            .addMenuButton(imageView2)
+            .addMenuButton(R.drawable.ic_save)
+            .addMenuButton(R.drawable.ic_confirm)
             .setOnIconClickListener(object : DoraTitleBar.OnIconClickListener {
             override fun onIconBackClick(icon: AppCompatImageView) {
                 LogUtils.i("返回")

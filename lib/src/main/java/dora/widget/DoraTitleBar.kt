@@ -212,11 +212,22 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
         return ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back) ?: BitmapDrawable()
     }
 
-    fun createMenuButton(@DrawableRes iconResId: Int, width: Int, height: Int) : AppCompatImageView {
+    private fun createMenuButton(@DrawableRes iconResId: Int, width: Int, height: Int) : AppCompatImageView {
         val menuButton = AppCompatImageView(context)
         menuButton.layoutParams = LayoutParams(width, height)
         menuButton.setImageResource(iconResId)
         return menuButton
+    }
+
+    fun addMenuButton(@DrawableRes iconResId: Int) : DoraTitleBar {
+        val defaultIconSize = dp2px(context, 24f)
+        addMenuButton(iconResId, defaultIconSize)
+        return this
+    }
+
+    fun addMenuButton(@DrawableRes iconResId: Int, iconSize: Int) : DoraTitleBar {
+        createMenuButton(iconResId, iconSize, iconSize)
+        return this
     }
 
     fun addMenuButton(menuIconView: AppCompatImageView) : DoraTitleBar {
