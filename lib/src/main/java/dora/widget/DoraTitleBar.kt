@@ -226,7 +226,7 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     fun addMenuButton(@DrawableRes iconResId: Int, iconSize: Int) : DoraTitleBar {
-        createMenuButton(iconResId, iconSize, iconSize)
+        addMenuButton(createMenuButton(iconResId, iconSize, iconSize))
         return this
     }
 
