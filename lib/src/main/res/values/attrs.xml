@@ -18,4 +18,11 @@
         <attr name="dview_menuIconBoxPadding" format="dimension|reference"/>
         <attr name="dview_menuIconMarginEnd" format="dimension|reference"/>
     </declare-styleable>
+    <declare-styleable name="DoraNavTitleBar">
+        <attr name="dview_closeIcon" format="reference"/>
+        <attr name="dview_closeIconTint" format="color|reference"/>
+        <attr name="dview_closeIconSize" format="dimension|reference"/>
+        <attr name="dview_closeIconBoxPadding" format="dimension|reference"/>
+        <attr name="dview_closeIconMarginStart" format="dimension|reference"/>
+    </declare-styleable>
 </resources>

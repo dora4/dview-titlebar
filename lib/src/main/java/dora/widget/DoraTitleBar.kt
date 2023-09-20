@@ -26,7 +26,7 @@ import dora.widget.titlebar.R
 /**
  * 简易标题栏。
  */
-class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
+open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
     defStyleAttr: Int = 0, defStyleRes: Int = 0) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private var onIconClickListener: OnIconClickListener? = null
@@ -254,6 +254,7 @@ class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
         val box = FrameLayout(context)
         if (isBackButton) {
+            iconView.id = R.id.dview_titlebar_back
             iconView.imageTintList = ColorStateList.valueOf(backIconTint)
             box.setPadding(backIconBoxPadding, backIconBoxPadding, backIconBoxPadding, backIconBoxPadding)
             val lp = FrameLayout.LayoutParams(backIconSize, backIconSize)

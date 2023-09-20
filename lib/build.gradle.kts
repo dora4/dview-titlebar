@@ -36,7 +36,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.dora4"
                 artifactId = "dview-titlebar"
-                version = "1.10"
+                version = "1.11"
             }
         }
     }
