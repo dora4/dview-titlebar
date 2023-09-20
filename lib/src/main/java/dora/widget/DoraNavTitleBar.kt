@@ -34,7 +34,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
             iconLp.marginStart = field
-            iconLp.addRule(ALIGN_PARENT_START)
+            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
@@ -53,7 +53,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
             iconLp.marginStart = closeIconMarginStart
-            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
+            iconLp.addRule(ALIGN_PARENT_START)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
@@ -76,6 +76,11 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
         closeIconBoxLp.addRule(ALIGN_PARENT_START)
         closeIconBoxLp.addRule(CENTER_VERTICAL)
         closeIconView.background = closeIcon
+        closeIconView.imageTintList = ColorStateList.valueOf(closeIconTint)
+        closeIconBox.setPadding(closeIconBoxPadding, closeIconBoxPadding, closeIconBoxPadding, closeIconBoxPadding)
+        val lp = FrameLayout.LayoutParams(closeIconSize, closeIconSize)
+        closeIconBox.addView(closeIconView, lp)
+        addView(closeIconBox, closeIconBoxLp)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
