@@ -34,7 +34,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
             iconLp.marginStart = field
-            iconLp.addRule(ALIGN_PARENT_START)
+            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
@@ -53,7 +53,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
             iconLp.marginStart = closeIconMarginStart
-            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
+            iconLp.addRule(ALIGN_PARENT_START)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
