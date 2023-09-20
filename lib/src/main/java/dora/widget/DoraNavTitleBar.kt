@@ -14,7 +14,6 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
 import dora.widget.titlebar.R
 
 open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
@@ -24,17 +23,17 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
     private var onCloseClickListener: OnCloseClickListener? = null
     private val closeIconView = AppCompatImageView(context)
     private var closeIconBox = FrameLayout(context)
-    private var closeIconMarginStart: Int = dp2px(context, 3f)
+    private var closeIconBoxPadding: Int = dp2px(context, 3f)
         set(value) {
             field = value
             requestLayout()
         }
-    private var closeIconBoxPadding: Int = dp2px(context, 12f)
+    private var closeIconMarginStart: Int = dp2px(context, 12f)
         set(value) {
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
             iconLp.marginStart = field
-            iconLp.addRule(ALIGN_PARENT_START)
+            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
@@ -52,8 +51,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
         set(value) {
             field = value
             val iconLp = LayoutParams(closeIconSize, closeIconSize)
-            iconLp.marginStart = closeIconMarginStart
-            iconLp.addRule(END_OF, R.id.dview_titlebar_back)
+            iconLp.addRule(ALIGN_PARENT_START)
             iconLp.addRule(CENTER_VERTICAL)
             closeIconView.layoutParams = iconLp
         }
@@ -76,6 +74,13 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
         closeIconBoxLp.addRule(ALIGN_PARENT_START)
         closeIconBoxLp.addRule(CENTER_VERTICAL)
         closeIconView.background = closeIcon
+        closeIconView.imageTintList = ColorStateList.valueOf(closeIconTint)
+        closeIconBox.setPadding(closeIconBoxPadding, closeIconBoxPadding, closeIconBoxPadding, closeIconBoxPadding)
+        val lp = FrameLayout.LayoutParams(closeIconSize, closeIconSize)
+        closeIconBox.addView(closeIconView, lp)
+        addView(closeIconBox, closeIconBoxLp)
+        // 导航标题栏让返回键的关闭失效
+        isClickBackIconClose = false
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -85,28 +90,13 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
 
     private fun initListener(context: Context) {
         closeIconBox.setOnClickListener {
-            onCloseClickListener?.onCloseClick(closeIconView)
-            if (isClickBackIconClose) {
-                (context as Activity).finish()
-            }
+            (context as Activity).finish()
         }
     }
 
     override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
         drawChild(canvas, closeIconBox, drawingTime)
-    }
-
-    interface OnCloseClickListener {
-
-        /**
-         * 左侧的返回键按钮被点击。
-         */
-        fun onCloseClick(icon: AppCompatImageView)
-    }
-
-    fun setOnCloseClickListener(listener: OnCloseClickListener) {
-        onCloseClickListener = listener
     }
 
     /**
