@@ -22,7 +22,7 @@ open class DoraNavTitleBar @JvmOverloads constructor(context: Context, attrs: At
 
     private val closeIconView = AppCompatImageView(context)
     private var closeIconBox = FrameLayout(context)
-    private var closeIconBoxPadding: Int = dp2px(context, 3f)
+    private var closeIconBoxPadding: Int = dp2px(context, 6f)
         set(value) {
             field = value
             requestLayout()
