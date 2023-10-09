@@ -21,7 +21,11 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.text.TextUtilsCompat
+import androidx.core.view.ViewCompat
 import dora.widget.titlebar.R
+import java.util.Locale
 
 /**
  * 简易标题栏。
@@ -206,10 +210,21 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     /**
+     * 支持阿拉伯地区从右向左的布局。
+     */
+    private fun isRtl() : Boolean {
+        return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL;
+    }
+
+    /**
      * 创建默认的返回按钮。
      */
     private fun createBackIcon(context: Context): Drawable {
-        return ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back) ?: BitmapDrawable()
+        val backIcon = ContextCompat.getDrawable(context, R.drawable.ic_dview_titlebar_back)
+        if (isRtl() && backIcon != null) {
+            DrawableCompat.setLayoutDirection(backIcon, LAYOUT_DIRECTION_RTL)
+        }
+        return  backIcon?: BitmapDrawable()
     }
 
     private fun createMenuButton(@DrawableRes iconResId: Int, width: Int, height: Int) : AppCompatImageView {
