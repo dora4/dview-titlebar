@@ -268,12 +268,12 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
      */
     private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
         val box = FrameLayout(context)
-        if (isRtl()) {
-            iconView.rotation = 180f
-        }
         if (isBackButton) {
             iconView.id = R.id.dview_titlebar_back
             iconView.imageTintList = ColorStateList.valueOf(backIconTint)
+            if (isRtl()) {
+                iconView.rotation = 180f
+            }
             box.setPadding(backIconBoxPadding, backIconBoxPadding, backIconBoxPadding, backIconBoxPadding)
             val lp = FrameLayout.LayoutParams(backIconSize, backIconSize)
             box.addView(iconView, lp)
