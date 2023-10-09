@@ -213,7 +213,8 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
      * 支持阿拉伯地区从右向左的布局。
      */
     private fun isRtl() : Boolean {
-        return TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL;
+        return TextUtilsCompat.getLayoutDirectionFromLocale(context.resources.configuration.locale) ==
+                ViewCompat.LAYOUT_DIRECTION_RTL;
     }
 
     /**
@@ -268,9 +269,6 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
      */
     private fun wrapButton(isBackButton: Boolean, iconView: AppCompatImageView) : FrameLayout {
         val box = FrameLayout(context)
-        if (isRtl()) {
-            iconView.rotation = 180f
-        }
         if (isBackButton) {
             iconView.id = R.id.dview_titlebar_back
             iconView.imageTintList = ColorStateList.valueOf(backIconTint)
