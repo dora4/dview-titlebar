@@ -21,11 +21,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.text.TextUtilsCompat
 import androidx.core.view.ViewCompat
 import dora.widget.titlebar.R
-import java.util.Locale
 
 /**
  * 简易标题栏。
@@ -262,6 +260,21 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         menuIconContainer.addView(menuBox, 0)
         menuBoxList.add(menuBox)
         return this
+    }
+
+    /**
+     * 清空所有菜单按钮。
+     */
+    fun clearMenuButtons() {
+        menuIconContainer.removeAllViews()
+        menuBoxList.clear()
+    }
+
+    /**
+     * 获取菜单按钮（容器）列表，再通过getChildAt(0)可以获得里面的ImageView。
+     */
+    fun getMenuBoxList() : MutableList<FrameLayout> {
+        return menuBoxList
     }
 
     /**
