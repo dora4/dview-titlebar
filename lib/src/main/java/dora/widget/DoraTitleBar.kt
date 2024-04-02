@@ -265,9 +265,10 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
     /**
      * 清空所有菜单按钮。
      */
-    fun clearMenuButtons() {
+    fun clearMenuButtons() : DoraTitleBar {
         menuIconContainer.removeAllViews()
         menuBoxList.clear()
+        return this
     }
 
     /**
