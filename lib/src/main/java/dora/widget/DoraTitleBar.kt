@@ -5,15 +5,20 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
@@ -25,6 +30,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.TextUtilsCompat
 import androidx.core.view.ViewCompat
 import dora.widget.titlebar.R
+
 
 /**
  * 简易标题栏。
@@ -103,6 +109,11 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
             field = value
             titleView.textSize = px2sp(context, field.toFloat())
         }
+    var titleMaxWidth: Int = getScreenWidth() - dp2px(context, 56f)
+        set(value) {
+            field = value
+            titleView.maxWidth = field
+        }
     var isTitleTextBold: Boolean = true
         set(value) {
             field = value
@@ -125,6 +136,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         title = a.getString(R.styleable.DoraTitleBar_dview_title) ?: title
         titleTextColor = a.getColor(R.styleable.DoraTitleBar_dview_titleTextColor, titleTextColor)
         titleTextSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleTextSize, titleTextSize)
+        titleTextSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleMaxWidth, titleTextSize)
         isTitleTextBold = a.getBoolean(R.styleable.DoraTitleBar_dview_isTitleTextBold, isTitleTextBold)
         a.recycle()
         initView(context)
@@ -151,6 +163,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         backIconView.background = backIcon
         titleView.text = title
         titleView.textSize = px2sp(context, titleTextSize.toFloat())
+        titleView.maxWidth = titleMaxWidth
         titleView.setSingleLine()
         titleView.maxLines = 1
         titleView.ellipsize = TextUtils.TruncateAt.END
@@ -317,5 +330,13 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
     private fun px2sp(context: Context, pxVal: Float): Float {
         val scale = context.resources.displayMetrics.scaledDensity
         return pxVal / scale
+    }
+
+    private fun getScreenWidth(): Int {
+        val w = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val d = w.defaultDisplay
+        val metrics = DisplayMetrics()
+        d.getMetrics(metrics)
+        return metrics.widthPixels
     }
 }

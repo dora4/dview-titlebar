@@ -13,6 +13,8 @@
         <attr name="dview_title" format="string|reference"/>
         <attr name="dview_titleTextColor" format="color|reference"/>
         <attr name="dview_titleTextSize" format="dimension|reference"/>
+        <!-- 适配老年模式 -->
+        <attr name="dview_titleMaxWidth" format="dimension|reference"/>
         <attr name="dview_isTitleTextBold" format="boolean"/>
         <!-- 用于给菜单按钮增加点击区域 -->
         <attr name="dview_menuIconBoxPadding" format="dimension|reference"/>
