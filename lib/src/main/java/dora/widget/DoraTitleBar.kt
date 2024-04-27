@@ -166,7 +166,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         titleView.maxWidth = titleMaxWidth
         titleView.setSingleLine()
         titleView.maxLines = 1
-        titleView.ellipsize = TextUtils.TruncateAt.END
+        titleView.ellipsize = TextUtils.TruncateAt.MARQUEE
         titleView.setTextColor(titleTextColor)
     }
 
