@@ -39,7 +39,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
     defStyleAttr: Int = 0, defStyleRes: Int = 0) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private var onIconClickListener: OnIconClickListener? = null
-    val titleView = AppCompatTextView(context)
+    val titleView = DoraMarqueeTextView(context)
     val backIconView = AppCompatImageView(context)
     private var backIconBox = FrameLayout(context)
     /**
@@ -164,11 +164,6 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         titleView.text = title
         titleView.textSize = px2sp(context, titleTextSize.toFloat())
         titleView.maxWidth = titleMaxWidth
-        titleView.setSingleLine()
-        titleView.maxLines = 1
-        titleView.isFocusable = true
-        titleView.isFocusableInTouchMode = true
-        titleView.ellipsize = TextUtils.TruncateAt.MARQUEE
         titleView.setTextColor(titleTextColor)
     }
 
