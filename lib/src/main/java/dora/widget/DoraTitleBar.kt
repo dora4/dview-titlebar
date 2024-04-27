@@ -109,7 +109,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
             field = value
             titleView.textSize = px2sp(context, field.toFloat())
         }
-    var titleMaxWidth: Int = getScreenWidth() - dp2px(context, 56f)
+    var titleMaxWidth: Int = getScreenWidth() - dp2px(context, 60f)
         set(value) {
             field = value
             titleView.maxWidth = field
