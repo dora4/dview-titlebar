@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -150,6 +151,9 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         backIconView.background = backIcon
         titleView.text = title
         titleView.textSize = px2sp(context, titleTextSize.toFloat())
+        titleView.setSingleLine()
+        titleView.maxLines = 1
+        titleView.ellipsize = TextUtils.TruncateAt.END
         titleView.setTextColor(titleTextColor)
     }
 
