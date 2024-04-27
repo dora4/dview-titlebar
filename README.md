@@ -32,5 +32,4 @@ dependencies {
                 LogUtils.i("点击了第${position}个菜单")
             }
         })
-    }
 ```
