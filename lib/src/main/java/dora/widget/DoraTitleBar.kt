@@ -5,16 +5,12 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +20,11 @@ import android.widget.RelativeLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.text.TextUtilsCompat
 import androidx.core.view.ViewCompat
 import dora.widget.titlebar.R
-
 
 /**
  * 简易标题栏。
@@ -136,7 +130,7 @@ open class DoraTitleBar @JvmOverloads constructor(context: Context, attrs: Attri
         title = a.getString(R.styleable.DoraTitleBar_dview_title) ?: title
         titleTextColor = a.getColor(R.styleable.DoraTitleBar_dview_titleTextColor, titleTextColor)
         titleTextSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleTextSize, titleTextSize)
-        titleTextSize = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleMaxWidth, titleTextSize)
+        titleMaxWidth = a.getDimensionPixelSize(R.styleable.DoraTitleBar_dview_titleMaxWidth, titleMaxWidth)
         isTitleTextBold = a.getBoolean(R.styleable.DoraTitleBar_dview_isTitleTextBold, isTitleTextBold)
         a.recycle()
         initView(context)
