@@ -5,6 +5,7 @@ dview-titlebar
 #### 卡片
 
 ![Dora视图_Title_Bar](https://github.com/user-attachments/assets/f34119d2-3a8c-4004-a118-b14d95664335)
+![Dora视图_积木战士](https://github.com/user-attachments/assets/66763607-391b-43f3-bf39-6f59ab9da2f3)
 
 #### Gradle依赖配置
 
