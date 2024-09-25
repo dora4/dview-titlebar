@@ -2,6 +2,10 @@ dview-titlebar
 ![Release](https://jitpack.io/v/dora4/dview-titlebar.svg)
 --------------------------------
 
+#### 卡片
+
+![Dora视图_Title_Bar](https://github.com/user-attachments/assets/f34119d2-3a8c-4004-a118-b14d95664335)
+
 #### Gradle依赖配置
 
 ```groovy
