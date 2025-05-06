@@ -30,7 +30,17 @@ dependencies {
 ```
 
 #### 控件使用
-
+```xml
+        <dora.widget.DoraTitleBar
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dview_title="@string/common_title"
+            app:dview_backIcon="@drawable/ic_back"
+            app:dview_backIconSize="26dp"
+            app:dview_isTitleTextBold="true"
+            android:background="@color/colorPrimary"/>
+```
 ```kotlin
         mBinding.titleBar
             .addMenuButton(R.drawable.ic_save)
