@@ -3,8 +3,7 @@ dview-titlebar
 --------------------------------
 
 #### 卡片
-
-![DORA视图 标题栏](https://github.com/user-attachments/assets/748e9a4d-bc29-4611-b30f-25de20a7a5c0)
+![DORA视图 标题栏](https://github.com/user-attachments/assets/4626b2db-dd46-4cbb-9884-c7af4caef1ba)
 ![DORA视图 DORA战士](https://github.com/user-attachments/assets/9233a84c-422a-408a-b812-acc2bb95ec4d)
 
 ##### 卡名：Dora视图 标题栏 
