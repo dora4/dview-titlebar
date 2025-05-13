@@ -4,9 +4,9 @@ dview-titlebar
 
 #### 卡片
 
-![Dora视图_Title_Bar](https://github.com/user-attachments/assets/f34119d2-3a8c-4004-a118-b14d95664335)
+![DORA视图 标题栏](https://github.com/user-attachments/assets/03482e04-af38-40e6-b74a-2ff57e9c74cc)
 ![Dora视图_积木战士](https://github.com/user-attachments/assets/66763607-391b-43f3-bf39-6f59ab9da2f3)
-##### 卡名：Dora视图 TitleBar 
+##### 卡名：Dora视图 标题栏 
 ###### 卡片类型：效果怪兽
 ###### 属性：地
 ###### 星级：4
